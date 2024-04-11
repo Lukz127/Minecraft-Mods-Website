@@ -1,4 +1,4 @@
-# Minecraft Mods
+# Minecraft Mods Website
 A website about minecraft and minecraft mods. Made for my Step-It
 final project and for my school website project.
 
