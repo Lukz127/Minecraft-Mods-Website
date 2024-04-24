@@ -7,6 +7,7 @@ import os
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import json
+import time
 import hashlib
 
 app = FastAPI()
@@ -68,11 +69,14 @@ def generateHtml(markdown: str, title: str, background: str, css: list[str] = []
     data += head
     data += f'<title>{title}</title>'
     for name in css:
-        data += f'<link rel="stylesheet" type="text/css" href="/css/{name}">'
+        data += f'<link rel="stylesheet" type="text/css" href="css/{name}">'
     for name in js:
         data += f'<script src="js/{name}"></script>'
     data += bodyStart
-    data += f'<img src="resources/{background}" alt="" id="backgroundImg">'
+    if background.startswith("http"):
+        data += f'<img src="{background}" alt="" id="backgroundImg">'
+    else:
+        data += f'<img src="resources/{background}" alt="" id="backgroundImg">'
     data += header
     data += f'<main><md-block>{markdown}</md-block></main>'
     data += htmlEnd
@@ -112,6 +116,7 @@ def generateMd(name: str):
 
 
 def hashMdFile(name: str):
+    time.sleep(0.01)  # A little bit of delay to fix it.
     with open(mdPagesDir+name, 'rb') as f:
         h = hashlib.sha256(f.read(), usedforsecurity=False).hexdigest()
     return h
@@ -119,10 +124,16 @@ def hashMdFile(name: str):
 
 def cacheMd(name: str):
     print(f'Caching: {name}')
-    html, path = generateMd(name)
-    pages.add(path)
-    with open(cachePath+os.path.splitext(name)[0]+'.html', 'w', encoding='utf-8') as f:
-        f.write(html)
+    try:
+        html, path = generateMd(name)
+        pages.add(path)
+        with open(cachePath+os.path.splitext(name)[0]+'.html', 'w', encoding='utf-8') as f:
+            f.write(html)
+        print('Caching successful!')
+        return 0
+    except TypeError:
+        print(f'Caching failed: {name}')
+        return 1
 
 
 def checkMdFile(name: str):
@@ -130,7 +141,8 @@ def checkMdFile(name: str):
     if name in hashes and hashes[name] == h and os.path.exists(cachePath+os.path.splitext(name)[0]+'.html'):
         return 1
     hashes[name] = h
-    cacheMd(name)
+    if cacheMd(name):
+        hashes[name] = None
     return 0
 
 

@@ -6,12 +6,12 @@ It has multiple pages and uses FastAPI with Uvicorn to serve the
 website. Has its own simple CMS (content management system) that
 uses markdown.
 
-You can run it as-is and view my "Minecraft Mods" website or you
+You can run it as-is and view my Minecraft Mods website or you
 can change the content and use the API as a CMS for your own website
 
 
 ## Table of contents
-- [Minecraft Mods](#minecraft-mods)
+- [Minecraft Mods Website](#minecraft-mods-website)
     - [Table of contents](#table-of-contents)
     - [Running](#running)
         - [Requirements](#requirements)

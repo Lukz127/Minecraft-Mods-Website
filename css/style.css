@@ -57,9 +57,34 @@ main {
     background: #888; 
 }
 
+div.screen-split {
+    display: flex;
+}
+
+div.half-screen {
+    width: 48%;
+}
+
+div.center {
+    align-self: center;
+    height: min-content;
+    margin-right: auto;
+}
+
+div.half-screen2 {
+    width: 48%;
+    margin-top: 40px;
+    margin-left: auto;
+}
+
+md-block img {
+    width: 100%;
+    height: 100%;
+}
+
 md-block p {
     font-size: 15pt;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
 }
 
 md-block h1 {
@@ -69,8 +94,9 @@ md-block h1 {
 }
 
 md-block h2 {
-    margin-bottom: 5px;
-    margin-top: 25px;
+    font-size: 24pt;
+    margin-bottom: 6px;
+    margin-top: 28px;
 }
 
 md-block h3 {
@@ -81,6 +107,10 @@ md-block h3 {
 md-block h4, md-block h5, md-block h6 {
     margin-bottom: 5px;
     margin-top: 18px;
+}
+
+md-block li {
+    margin-bottom: 10px;
 }
 
 #smallLogo {
@@ -106,6 +136,14 @@ md-block h4, md-block h5, md-block h6 {
     width: 50px;
     height: 50px;
 }
+
+md-block ul li a, md-block p a {
+    font-size: 15pt;
+    margin-bottom: 5px;
+    color: #2525ef;
+    color: white;
+}
+
 
 
 
@@ -168,7 +206,7 @@ nav .nav-bar .dropdown .project.scrollbar-visible {
     transform: translateX(-45px) translateY(7px);
 }
 nav .nav-bar .dropdown:hover .project{
-    height: 315px;
+    height: 285px;
     visibility: visible;
 }
 
